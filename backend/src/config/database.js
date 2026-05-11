@@ -14,6 +14,8 @@ db.configure('busyTimeout', 10000);
 
 const init = () => {
   db.serialize(() => {
+    db.run('PRAGMA foreign_keys = ON');
+
     // Users table
     db.run(`
       CREATE TABLE IF NOT EXISTS users (
@@ -75,10 +77,20 @@ const all = (sql, params = []) => {
   });
 };
 
+const close = () => {
+  return new Promise((resolve, reject) => {
+    db.close((err) => {
+      if (err) reject(err);
+      else resolve();
+    });
+  });
+};
+
 module.exports = {
   db,
   init,
   run,
   get,
-  all
+  all,
+  close
 };
