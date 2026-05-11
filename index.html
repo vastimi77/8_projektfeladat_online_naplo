@@ -2,40 +2,78 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Naplo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Online Napló - Személyes jegyzetkezelő alkalmazás">
+    <meta name="theme-color" content="#0d6efd">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Security headers -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' data:">
+    
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Online Napló">
+    <meta property="og:description" content="Személyes jegyzetkezelő alkalmazás">
+    <meta property="og:type" content="website">
+    
+    <title>Online Napló - Jegyzetkezelő</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjH9uk5krG3fQ+1c8Dvc5KQOoWq3LZr9lTCHJe0x7hFmPaGbB69F7SPF" crossorigin="anonymous">
+    
+    <!-- Custom styles -->
     <link rel="stylesheet" href="/frontend/css/styles.css">
 </head>
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-        <div class="container">
-            <span class="navbar-brand mb-0 h1">Online Naplo</span>
-            <div class="d-flex align-items-center gap-2">
-                <span id="currentUser" class="badge text-bg-success d-none"></span>
-                <button id="logoutButton" class="btn btn-outline-light btn-sm d-none" type="button">Kijelentkezes</button>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+        <div class="container-fluid px-3 px-lg-5">
+            <span class="navbar-brand mb-0 h5">📔 Online Napló</span>
+            <div class="d-flex align-items-center gap-3">
+                <span id="currentUser" class="badge text-bg-success d-none" role="status"></span>
+                <button id="logoutButton" class="btn btn-outline-light btn-sm d-none" type="button" aria-label="Kijelentkezés">
+                    Kijelentkezés
+                </button>
             </div>
         </div>
     </nav>
 
-    
+    <!-- Main content -->
+    <main class="container-fluid px-3 px-lg-5 py-4">
+        <!-- Status message -->
+        <section id="statusBanner" class="alert d-none mb-4" role="alert"></section>
 
-        <section id="statusBanner" class="alert d-none" role="alert"></section>
-
+        <!-- Auth layout (login/register) -->
         <section id="authLayout" class="row g-4">
-            <div class="col-12 col-lg-6"> 
+            <div class="col-12 col-lg-6">
                 <form id="loginForm" class="card shadow-sm border-0 h-100">
                     <div class="card-body p-4">
-                        <h3 class="h4 mb-3">Bejelentkezes</h3>
+                        <h2 class="h4 mb-4 text-primary">Bejelentkezés</h2>
+                        
                         <div class="mb-3">
-                            <label class="form-label" for="loginUsername">Felhasznalonev</label>
-                            <input class="form-control" id="loginUsername" name="username" type="text" required>
+                            <label class="form-label fw-500" for="loginUsername">Felhasználónév</label>
+                            <input 
+                                class="form-control" 
+                                id="loginUsername" 
+                                name="username" 
+                                type="text" 
+                                placeholder="Írd be a felhasználónevedet"
+                                required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="loginPassword">Jelszo</label>
-                            <input class="form-control" id="loginPassword" name="password" type="password" required>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-500" for="loginPassword">Jelszó</label>
+                            <input 
+                                class="form-control" 
+                                id="loginPassword" 
+                                name="password" 
+                                type="password" 
+                                placeholder="Írd be a jelszót"
+                                required>
                         </div>
-                        <button class="btn btn-primary" type="submit">Belepes</button>
+                        
+                        <button class="btn btn-primary w-100" type="submit">Bejelentkezés</button>
                     </div>
                 </form>
             </div>
@@ -43,82 +81,146 @@
             <div class="col-12 col-lg-6">
                 <form id="registerForm" class="card shadow-sm border-0 h-100">
                     <div class="card-body p-4">
-                        <h3 class="h4 mb-3">Regisztracio</h3>
+                        <h2 class="h4 mb-4 text-success">Regisztráció</h2>
+                        
                         <div class="mb-3">
-                            <label class="form-label" for="registerUsername">Felhasznalonev</label>
-                            <input class="form-control" id="registerUsername" name="username" type="text" minlength="3" required>
+                            <label class="form-label fw-500" for="registerUsername">Felhasználónév</label>
+                            <input 
+                                class="form-control" 
+                                id="registerUsername" 
+                                name="username" 
+                                type="text" 
+                                minlength="3" 
+                                maxlength="50"
+                                placeholder="Minimum 3 karakter"
+                                required>
                         </div>
+                        
                         <div class="mb-3">
-                            <label class="form-label" for="registerEmail">Email</label>
-                            <input class="form-control" id="registerEmail" name="email" type="email" required>
+                            <label class="form-label fw-500" for="registerEmail">Email cím</label>
+                            <input 
+                                class="form-control" 
+                                id="registerEmail" 
+                                name="email" 
+                                type="email" 
+                                placeholder="peldaul: te@example.com"
+                                required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="registerPassword">Jelszo</label>
-                            <input class="form-control" id="registerPassword" name="password" type="password" minlength="6" required>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-500" for="registerPassword">Jelszó</label>
+                            <input 
+                                class="form-control" 
+                                id="registerPassword" 
+                                name="password" 
+                                type="password" 
+                                minlength="6" 
+                                maxlength="128"
+                                placeholder="Minimum 6 karakter"
+                                required>
                         </div>
-                        <button class="btn btn-success" type="submit">Fiok letrehozasa</button>
+                        
+                        <button class="btn btn-success w-100" type="submit">Fiók létrehozása</button>
                     </div>
                 </form>
             </div>
         </section>
 
+        <!-- Workspace (editor + notes list) -->
         <section id="workspace" class="row g-4 d-none">
+            <!-- Note editor -->
             <div class="col-12 col-xl-5">
                 <section class="card shadow-sm border-0 h-100">
                     <div class="card-body p-4">
-                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-                            <h3 id="editorTitle" class="h4 mb-0">Uj jegyzet</h3>
-                            <button id="resetEditorButton" class="btn btn-outline-secondary btn-sm" type="button">Uj jegyzet</button>
+                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+                            <h2 id="editorTitle" class="h4 mb-0 text-primary">Új jegyzet</h2>
+                            <button id="resetEditorButton" class="btn btn-outline-secondary btn-sm" type="button" title="Szerkesztő törlése">
+                                Új
+                            </button>
                         </div>
 
-                        <form id="noteForm">
-                            <input id="noteId" type="hidden">
+                        <form id="noteForm" novalidate>
+                            <input id="noteId" type="hidden" value="">
 
                             <div class="mb-3">
-                                <label class="form-label" for="noteTitle">Cim</label>
-                                <input class="form-control" id="noteTitle" name="title" type="text" maxlength="200" required>
+                                <label class="form-label fw-500" for="noteTitle">Cím</label>
+                                <input 
+                                    class="form-control" 
+                                    id="noteTitle" 
+                                    name="title" 
+                                    type="text" 
+                                    maxlength="200" 
+                                    placeholder="Írd be a jegyzet címét"
+                                    required>
+                                <small class="form-text text-muted d-block mt-1">Maximum 200 karakter</small>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="noteCategory">Kategoria</label>
-                                <input class="form-control" id="noteCategory" name="category" type="text" placeholder="Peldaul: munka, otlet, szemelyes">
+                                <label class="form-label fw-500" for="noteCategory">Kategória</label>
+                                <input 
+                                    class="form-control" 
+                                    id="noteCategory" 
+                                    name="category" 
+                                    type="text" 
+                                    maxlength="50"
+                                    placeholder="Például: munka, ötlet, személyes">
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label" for="noteContent">Tartalom</label>
-                                <textarea class="form-control" id="noteContent" name="content" rows="11" required></textarea>
+                            <div class="mb-4">
+                                <label class="form-label fw-500" for="noteContent">Tartalom</label>
+                                <textarea 
+                                    class="form-control" 
+                                    id="noteContent" 
+                                    name="content" 
+                                    rows="11"
+                                    placeholder="Írd be a jegyzet tartalmát"
+                                    required></textarea>
+                                <small class="form-text text-muted d-block mt-1">Maximum 10 000 karakter</small>
                             </div>
 
                             <div class="d-flex gap-2 flex-wrap">
-                                <button id="saveNoteButton" class="btn btn-primary" type="submit">Mentes</button>
-                                <button id="deleteNoteButton" class="btn btn-outline-danger d-none" type="button">Torles</button>
+                                <button id="saveNoteButton" class="btn btn-primary flex-grow-1" type="submit">
+                                    💾 Mentés
+                                </button>
+                                <button id="deleteNoteButton" class="btn btn-outline-danger d-none" type="button" title="Jegyzet törlése">
+                                    🗑️ Törlés
+                                </button>
                             </div>
                         </form>
                     </div>
                 </section>
             </div>
 
+            <!-- Notes list -->
             <div class="col-12 col-xl-7">
                 <section class="card shadow-sm border-0 h-100">
                     <div class="card-body p-4">
-                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-                            <h3 class="h4 mb-0">Jegyzetlista</h3>
-                            <button id="refreshNotesButton" class="btn btn-outline-primary btn-sm" type="button">Frissites</button>
+                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+                            <h2 class="h4 mb-0 text-primary">Jegyzetlista</h2>
+                            <button id="refreshNotesButton" class="btn btn-outline-primary btn-sm" type="button" title="Jegyzetek frissítése">
+                                🔄 Frissítés
+                            </button>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label" for="searchInput">Kereses</label>
-                            <input id="searchInput" class="form-control" type="search" placeholder="Keress cimre vagy szovegre">
+                            <label class="form-label fw-500" for="searchInput">Keresés</label>
+                            <input 
+                                id="searchInput" 
+                                class="form-control" 
+                                type="search" 
+                                placeholder="Keress címre vagy szövegre..."
+                                aria-label="Keresés a jegyzetekben">
                         </div>
 
-                        <div id="notesList" class="notes-list"></div>
+                        <div id="notesList" class="notes-list" role="region" aria-label="Jegyzetek listája"></div>
                     </div>
                 </section>
             </div>
         </section>
     </main>
 
+    <!-- Scripts -->
     <script src="/frontend/js/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOHmy+McmqTLSQIfLJyfIJOfs" crossorigin="anonymous"></script>
 </body>
 </html>
