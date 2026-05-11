@@ -1,8 +1,59 @@
+# Dependencies
 node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables (never commit)
 .env
 .env.local
+.env.*.local
+.env.test
+
+# Logs
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Database (development, never commit)
 *.db
+*.sqlite
+*.sqlite3
+database/naplo.db
+
+# Build outputs
 dist/
+build/
+out/
+.next/
+
+# Testing
 coverage/
+.nyc_output/
+test-results/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 .DS_Store
+Thumbs.db
+
+# Runtime
+tmp/
+temp/
+pid/
+
+# Optional npm cache
+.npm
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Docker
+.dockerignore
