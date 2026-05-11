@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "Online Napló Backend API",
   "main": "src/server.js",
+  "homepage": "https://github.com/username/8_projektfeladat_online_naplo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/8_projektfeladat_online_naplo.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
