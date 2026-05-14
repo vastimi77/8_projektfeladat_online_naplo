@@ -685,16 +685,6 @@ function escapeHtml(value) {
         .replaceAll("'", '&#39;');
 }
 
-async function loadNotes() {
-    if (!state.token) {
-        return;
-    }
-
-    const notes = await apiFetch('/api/notes');
-    state.notes = notes;
-    applyFilter();
-}
-
 async function handleRegister(event) {
     event.preventDefault();
     clearStatus();
